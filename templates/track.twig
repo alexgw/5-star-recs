@@ -1,0 +1,26 @@
+    <div id="track-container"> 
+        <div class="card" id="card">            
+            {# {{index}} #}
+            <h5> recommended for you... </h5>
+            <p>based on:</p>
+            <p> {{seed}}</p>
+            <img class="track-image" src="{{data.album.images[1].url}}" 
+                alt=" artwork for {{data.name}}" 
+                >
+            <div class="track-container">
+                <h4><b>{{data.name}}</b></h4> 
+                <p>{{data.artists[0].name}}</p> 
+                <button class="spotify-button"><a href="{{data.external_urls.spotify}}">Listen on Spotify</a></button>
+            </div>
+        </div>
+
+         <button class="get-button"
+                hx-get="/functions/get_playlist.php" 
+                hx-trigger="click delay:1s"
+                hx-target="#track-container"
+                hx-swap="outerHTML"
+                hx-indicator="#thinking"
+                >
+            get another
+            </button>
+    </div>

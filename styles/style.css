@@ -1,0 +1,201 @@
+:root {
+    --step--2: clamp(0.6331rem, 0.6424rem + -0.012vw, 0.64rem);
+    --step--1: clamp(0.8rem, 0.7848rem + 0.0761vw, 0.8438rem);
+    --step-0: clamp(1rem, 0.9565rem + 0.2174vw, 1.125rem);
+    --step-1: clamp(1.25rem, 1.1633rem + 0.4337vw, 1.4994rem);
+    --step-2: clamp(1.5625rem, 1.4108rem + 0.7587vw, 1.9988rem);
+    --step-3: clamp(1.9531rem, 1.7057rem + 1.237vw, 2.6644rem);
+    --step-4: clamp(2.4413rem, 2.0549rem + 1.9315vw, 3.5519rem);
+    --step-5: clamp(3.0519rem, 2.4664rem + 2.9272vw, 4.735rem);
+    --step-6: clamp(3.815rem, 2.9467rem + 4.3413vw, 6.3113rem);
+    --step-7: clamp(4.7681rem, 3.5003rem + 6.3391vw, 8.4131rem);
+    --step-8: clamp(5.9606rem, 4.133rem + 9.138vw, 11.215rem);
+  }
+@keyframes LoadIn {
+    0% {
+      opacity: 0;
+      filter: blur(10px);
+    }
+    100% {
+      opacity: 1;
+        filter: blur(0px);
+    } 
+}
+
+h1 {
+    margin-top: 10%;
+    position: relative;
+    font-family: 'Nabla', system-ui;
+    font-size: var(--step-7);
+    text-align: center;
+}
+
+header {
+ margin: auto;
+}
+
+p{
+    font-family: 'Orbitron', sans-serif;
+    font-size: var(--step-0);
+    color: #ffffff;
+}
+
+h4{
+    font-family: 'Orbitron', sans-serif;
+    font-size: var(--step-2);
+    color: #ffffff;
+}
+h5{
+    font-family: 'Orbitron', sans-serif;
+    font-size: var(--step-1);
+    color: #ffffff;
+    margin: 0;
+}
+
+
+
+.intro{
+    text-align: center;
+    /* height: 15vh; */
+    animation: 3s ease-in 0s 1 LoadIn;
+    margin-bottom: 10px;
+}
+
+
+
+.track-image{
+    margin-top: 20px;
+}
+
+body {
+    height: 100vh;
+    margin: 0;
+    background-size: 200% 200%;
+    background-image: linear-gradient(45deg, #230b9f 0%, #6f036d 55%, #004666 100%);
+    animation: Gradient 30s ease-in-out infinite;
+}
+
+@keyframes Gradient {
+    0% {
+        background-position: 0% 50%
+        
+    }
+    50% {
+        background-position: 100% 50%
+     
+    }
+    100% {
+        background-position: 0% 50%
+
+    }
+}
+
+.card{
+    animation: 3s ease-in 0s 1 LoadIn;
+    text-align: center  ;
+}
+
+button {
+    font-family: 'Orbitron', sans-serif;
+    animation: 5s ease-in 0s 1 LoadIn;
+    display: block;
+    border: none;
+    padding: 1rem 2rem;
+    margin: 0 auto ;  
+    text-decoration: none;
+    background: #006bed00;
+    color: #ffffff;
+    /* font-family: sans-serif; */
+    font-size: 1rem;
+    cursor: pointer;
+    text-align: center;
+    border-radius: 2.7rem;
+    border-style: solid;
+    border-width: 0.2rem;
+    border-color: #ffffff;
+    transition: background 350ms ease-in-out, 
+                color 350ms ease,
+                transform 150ms ease;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+}
+
+button:hover,
+button:focus {
+    background: #e8e8e8;
+    color: #000000;
+}
+
+button:focus {
+    outline: 1px solid #fff;
+    outline-offset: -4px;
+}
+
+button:active {
+    transform: scale(0.89);
+}
+
+.get-button{
+    margin-top: 15px;
+    margin-bottom: 40px;
+}
+
+.spotify-button{
+    animation: 1s ease-in 0s 1 LoadIn;
+    background-color: #1db954;
+    color: white;
+    border-color: #1db954;
+    margin-top: 10px;
+    margin-bottom: 15px;
+}
+
+.spotify-button > a{
+    color: white;
+    text-decoration: none;
+}
+
+.spotify-button:hover{
+    background-color: #128239;
+    /* border-color: #128239; */
+    
+}
+
+.container {
+    display: grid; 
+    grid-template-columns: 1fr 1fr 1fr; 
+    grid-template-rows: 1fr; 
+    gap: 0px 0px; 
+    grid-template-areas: 
+      "left-pad Content right-pad"
+; 
+  }
+  .left-pad { grid-area: left-pad; }
+  .right-pad { grid-area: right-pad; }
+  .Content { grid-area: Content; }
+
+/* media below 420 */
+
+@media only screen and (max-width: 420px) {
+    .container {
+        display: grid; 
+        grid-template-columns: 0.1fr 1fr 0.1fr; 
+        grid-template-rows: 1fr ;
+        gap: 0px 0px; 
+        grid-template-areas: 
+          ". Content ."        
+      }
+      .Content { grid-area: Content;
+        padding-bottom: 10vh;
+     }
+}
+
+.htmx-indicator{
+    display:none;
+}
+.htmx-request .htmx-indicator{
+    display:inline;
+}
+.htmx-request.htmx-indicator{
+    display:inline;
+}
+

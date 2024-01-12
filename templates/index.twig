@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>My Webpage</title>
+        <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Nabla:EDPT,EHLT@40,0&display=swap');
+</style>
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+</style>
+        <link rel="stylesheet" href="./styles/reset.css">
+        <link rel="stylesheet" href="./styles/style.css">
+        
+
+
+    </head>
+    <body>
+        <div class="gradient-background"></div>
+        <div class="header">
+            <h1>💫 5* Recs 💫</h1>
+        </div>
+        <div
+        hx-get="/functions/auth.php"
+        hx-trigger="load"
+        > </div>
+        <div class="container">
+        <div class="left-pad"></div>
+        <div class="right-pad"></div>
+        <div class="Content" id="content">
+            <img id="indicator" class="htmx-indicator" src="./loader.svg">
+
+            <p class="intro" hx-get="/functions/get_intro.php" hx-trigger="load">  
+            
+            </p>
+            <button class="get-button"
+                hx-get="/functions/get_playlist.php" 
+                hx-trigger="click delay:1s"
+                hx-swap="innerHTML"
+                hx-target="#content"
+                hx-indicator="#thinking"
+                >
+            get a track
+            </button>
+
+             <p id="thinking" class="htmx-indicator"> Hmm let me think...</p> 
+
+            
+        </div>
+        
+     
+    </body>
+</html>
