@@ -10,7 +10,13 @@
             <div class="track-container">
                 <h4><b>{{data.name}}</b></h4> 
                 <p>{{data.artists[0].name}}</p> 
-                <button class="spotify-button"><a href="{{data.external_urls.spotify}}">Listen on Spotify</a></button>
+                {# <div> Preview
+                    <audio controls>
+                        <source src="{{data.preview_url}}" type="audio/mpeg">
+                        
+                    </audio>
+                </div> #}
+                <button class="spotify-button"><a target="blank" href="{{data.external_urls.spotify}}">Listen on Spotify</a></button>
             </div>
         </div>
 
