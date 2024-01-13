@@ -175,7 +175,7 @@ button:active {
 
 /* media below 420 */
 
-@media only screen and (max-width: 420px) {
+@media only screen and (max-width: 520px) {
     .container {
         display: grid; 
         grid-template-columns: 0.1fr 1fr 0.1fr; 
@@ -187,6 +187,21 @@ button:active {
       .Content { grid-area: Content;
         padding-bottom: 10vh;
      }
+
+     h1{
+         font-size: var(--step-8);
+     }
+
+     p{
+            font-size: var(--step-3);
+     }
+     .intro{
+         margin-bottom: 5vh;
+     }
+     button{
+            font-size: var(--step-3);
+     }
+
 }
 
 .htmx-indicator{
