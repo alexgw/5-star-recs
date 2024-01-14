@@ -1,0 +1,25 @@
+<div class="recs-container">
+
+    <div class="recs-header">
+        <h4>Recommended Tracks</h4>
+    
+
+    <p> I used these values to find your recommended tracks: </p>
+    <details>
+        <summary> See full request and data </summary>
+    <code>
+    {{body}}
+
+    {# {{dump(data.tracks)}} #}
+    </code>
+    </details>
+    </div>
+<div class="recs-response">
+{% for rec in data.tracks %}
+        <li class="rec">
+        {% include 'track.twig' with {'data': rec} %}
+        </li>
+{% endfor %}
+</div>
+
+</div>

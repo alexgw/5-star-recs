@@ -1,9 +1,11 @@
     <div id="track-container"> 
         <div class="card" id="card">            
             {# {{index}} #}
+            {% if seed %}
             <h5> recommended for you... </h5>
             <p>based on:</p>
             <p> {{seed}}</p>
+            {% endif %}
             <img class="track-image" src="{{data.album.images[1].url}}" 
                 alt=" artwork for {{data.name}}" 
                 >
@@ -19,8 +21,8 @@
                 <button class="spotify-button"><a target="blank" href="{{data.external_urls.spotify}}">Listen on Spotify</a></button>
             </div>
         </div>
-
-         <button class="get-button"
+        {% if seed %}
+            <button class="get-button"
                 hx-get="/functions/get_playlist.php" 
                 hx-trigger="click delay:1s"
                 hx-target="#track-container"
@@ -29,4 +31,5 @@
                 >
             get another
             </button>
+        {% endif %}
     </div>

@@ -40,6 +40,37 @@ p{
     color: #ffffff;
 }
 
+label{
+    font-family: 'Orbitron', sans-serif;
+    font-size: var(--step-0);
+    color: #ffffff;
+    animation: 2s ease-in 0s 1 LoadIn;
+
+}
+
+details{
+    font-family: 'Orbitron', sans-serif;
+    font-size: var(--step-0);
+    color: #ffffff;
+    animation: 2s ease-in 0s 1 LoadIn;
+
+}
+
+textarea{
+    animation: 2s ease-in 0s 1 LoadIn;
+    font-family: 'Orbitron', sans-serif;
+    font-size: var(--step-0);
+    color: #ffffff;
+    width: 50vw;
+    height: 150px;
+    padding: 3px 3px;
+    box-sizing: border-box;
+    border: 2px solid #ccc;
+    border-radius: 4px;
+    background-color: #f8f8f800;
+    font-size: 16px;
+}
+
 h4{
     font-family: 'Orbitron', sans-serif;
     font-size: var(--step-2);
@@ -52,6 +83,9 @@ h5{
     margin: 0;
 }
 
+li{
+    list-style-type: none
+}
 
 
 .intro{
@@ -69,7 +103,7 @@ h5{
 }
 
 body {
-    height: 100vh;
+    /* height: 100vh; */
     margin: 0;
     background-size: 200% 200%;
     background-image: linear-gradient(45deg, #230b9f 0%, #6f036d 55%, #004666 100%);
@@ -164,7 +198,7 @@ button:active {
 .container {
     display: grid; 
     grid-template-columns: 1fr 1fr 1fr; 
-    grid-template-rows: 1fr; 
+    grid-template-rows: 1fr 1fr; 
     gap: 0px 0px; 
     grid-template-areas: 
       "left-pad Content right-pad"
@@ -174,13 +208,82 @@ button:active {
   .right-pad { grid-area: right-pad; }
   .Content { grid-area: Content; }
 
+
+.submit-request{
+    margin-top: 10px;
+    margin-bottom: 10px;
+    grid-area: Content;
+}
+
+.response{
+    clear: both;
+    margin-top: 10px;
+    margin-bottom: 10px;
+    /* grid-area: Content; */
+}
+
+.recs-header{
+    text-align: center;
+}
+
+
+.recs-response{
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-rows: repeat(5, 1fr);
+    grid-column-gap: 10px;
+    grid-row-gap: 10px;}
+
+    .recs-response:nth-child(1) {
+        animation-delay: 0.2s;
+    }
+    
+    .recs-response:nth-child(2) {
+        animation-delay: 0.4s;
+    }
+    
+    .recs-response:nth-child(3) {
+        animation-delay: 0.6s;
+    }
+    
+    .recs-response:nth-child(4) {
+        animation-delay: 0.8s;
+    }
+    
+    .recs-response:nth-child(5) {
+        animation-delay: 1s;
+    }
+    
+    .recs-response:nth-child(6) {
+        animation-delay: 1.2s;
+    }
+    
+    .recs-response:nth-child(7) {
+        animation-delay: 1.4s;
+    }
+    
+    .recs-response:nth-child(8) {
+        animation-delay: 1.6s;
+    }
+    
+    .recs-response:nth-child(9) {
+        animation-delay: 1.8s;
+    }
+    
+    .recs-response:nth-child(10) {
+        animation-delay: 2s;
+    }
+.rec{
+    /* autofill grid position */
+    grid-row: auto;
+    grid-column: auto;
+}
 /* media below 420 */
 
 @media only screen and (max-width: 520px) {
     .container {
         display: grid; 
         grid-template-columns: 0.1fr 1fr 0.1fr; 
-        grid-template-rows: 1fr ;
         gap: 0px 0px; 
         grid-template-areas: 
           ". Content ."        
@@ -190,19 +293,28 @@ button:active {
      }
 
      h1{
-         font-size: var(--step-8);
+         font-size: var(--step-6);
      }
 
      p{
-            font-size: var(--step-3);
+            font-size: var(--step-0);
      }
      .intro{
          margin-bottom: 5vh;
      }
      button{
-            font-size: var(--step-3);
+            font-size: var(--step-0);
+     }
+     
+     textarea{
+        font-size: var(--step-0);
+        width: 90vw;
      }
 
+     .recs-response{
+        display: grid;
+        grid-template-columns: repeat(1, 1fr);
+        grid-template-rows: repeat(10, 1fr);
 }
 
 .htmx-indicator{

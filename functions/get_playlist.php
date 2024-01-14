@@ -10,10 +10,10 @@ $api->setAccessToken($accessToken);
 
 // It's now possible to request data from the Spotify catalog
 
-$data = $api->getPlaylist('7oOethLRNcQNzRo94qCB1x');
+$data = $api->getPlaylist('3qSWBsBfYKcmT6kMy9q94l');
 //https://open.spotify.com/playlist/37i9dQZF1EJxdz8iRHv1oU?si=9bc252791b7c4c81
 
-//https: //open.spotify.com/playlist/7oOethLRNcQNzRo94qCB1x?si=9fbc3e51e29b47fa
+https: //open.spotify.com/playlist/7oOethLRNcQNzRo94qCB1x?si=9fbc3e51e29b47fa
 
 $index = random_int(0, count($data->tracks->items) - 1);
 
