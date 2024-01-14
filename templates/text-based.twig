@@ -25,9 +25,10 @@
         hx-get="/functions/auth.php"
         hx-trigger="load"
         > </div>
+        <p class="intro"> I'm here to help you break the loop. Tell me what you want and I'll give you a recommendation using Spotify's recommendation engine. I'm still very much in alpha so might not work great! </p> 
         <div class="container" id="container">
 
-        <p> I'm here to help you break the loop. Tell me what you want and I'll give you a recommendation using Spotify's recommendation engine. I'm still very much in alpha so might not work great! </p> 
+        
         <form class="submit-request" hx-post="/functions/get_recommends.php" hx-trigger="submit" hx-target="#container"  hx-swap="outerHTML">
             <label for="input">Tell me what you want?</label>
             <textarea rows="5" cols="80" id="input" name="input"></textarea>
