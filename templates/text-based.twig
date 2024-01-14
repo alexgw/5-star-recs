@@ -17,6 +17,9 @@
 
     </head>
     <body>
+      <div id ="thinking" class="modal ">    
+         <p class="modal-text"> Searching the oceans of content...</p> 
+      </div>
         <div class="gradient-background"></div>
         <div class="header">
             <h1>Break the loop</h1>
@@ -29,13 +32,13 @@
         <div class="container" id="container">
 
         
-        <form class="submit-request" hx-post="/functions/get_recommends.php" hx-trigger="submit" hx-target="#container"  hx-swap="outerHTML">
+        <form class="submit-request" hx-post="/functions/get_recommends.php" hx-trigger="submit" hx-target="#container"  hx-swap="outerHTML" hx-indicator="#thinking">
             <label for="input">Tell me what you want?</label>
             <textarea rows="5" cols="80" id="input" name="input"></textarea>
             <button type="submit" value="Submit">Submit</button>
         </form>
-    
-       
+
+      
 
             
         </div>

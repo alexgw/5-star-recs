@@ -280,6 +280,28 @@ button:active {
 }
 /* media below 420 */
 
+.modal{
+    position: absolute;
+    width: 100vw;
+    margin-top: -20%;
+    height: 132vh;
+    background-color: #00000034;
+    z-index: 100;
+    backdrop-filter: blur(15px);
+
+}
+
+.modal-text{
+    position: fixed;
+    top: 50%;
+    left: 50%;
+    font-size: var(--step-3);
+    transform: translate(-50%, -50%);
+    /* background-color: #ffffff; */
+    z-index: 120;
+}
+
+
 @media only screen and (max-width: 520px) {
     .container {
         display: grid; 
@@ -315,6 +337,7 @@ button:active {
         display: grid;
         grid-template-columns: repeat(1, 1fr);
         grid-template-rows: repeat(10, 1fr);
+    }
 }
 
 .htmx-indicator{
