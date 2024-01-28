@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>5* Recs</title>
+        <meta name="viewport" content="width=device-width, initial-scale=1">
+        <script src="https://unpkg.com/htmx.org@1.9.10" integrity="sha384-D1Kt99CQMDuVetoL1lrYwg5t+9QdHe7NLX/SoJYkXDFfX37iInKRy5xLSi8nO7UC" crossorigin="anonymous"></script>
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Nabla:EDPT,EHLT@40,0&display=swap');
+</style>
+        <style>
+@import url('https://fonts.googleapis.com/css2?family=Orbitron&display=swap');
+</style>
+        <link rel="stylesheet" href="./styles/reset.css">
+        <link rel="stylesheet" href="./styles/style.css">
+        
+
+
+    </head>
+    <body>
+      <div id ="thinking" class="modal htmx-indicator">    
+         <p class="modal-text"> Going back in time</p> 
+      </div>
+        <div class="gradient-background"></div>
+        <div class="header">
+            <h1>5* blend archive</h1>
+        </div>
+        <div
+        hx-get="/functions/auth.php"
+        hx-trigger="load"
+        > </div>
+        <p class="intro"> A history of the blend</p> 
+        <div class="container" id="container">
+
+        
+        <div hx-trigger='load'hx-swap='outerHTML' hx-get="/functions/get_history.php"></div>
+      
+
+            
+        </div>
+        
+     
+    </body>
+</html>
