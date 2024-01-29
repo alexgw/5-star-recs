@@ -20,12 +20,14 @@ $REDIRECT_URI = $_ENV['SPOTIFY_REDIRECT_URI'];
 try {
     // Try to make a request to the Spotify API using the current access token
     $api = new SpotifyWebAPI\SpotifyWebAPI();
-    $api->setAccessToken($accessToken);
+    if ($accessToken) {
+        $api->setAccessToken($accessToken);
+    }
 
     // Example: Make a request to the Spotify API
     $me = $api->me();
 
-    // Continue with other operations using the Spotify API...
+
 
 } catch (SpotifyWebAPI\SpotifyWebAPIException $e) {
     // If there's an issue with the current access token, catch the exception
