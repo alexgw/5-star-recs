@@ -106,7 +106,8 @@ foreach ($data->tracks->items as $track) {
     echo "track id: {$track->track->id} <br>";
     $db_track = $database->querySingle("SELECT track_id FROM blend WHERE track_id = '{$track->track->id}'", false);
     echo "db track: {$db_track} <br>";
-
+    $database->close();
+    $database = new SQLite3('../data/db.sqlite');
     // $existingCount = false;
     if ($db_track == $track->track->id) {
         echo "track exists, incrementing count <br>";
@@ -116,6 +117,7 @@ foreach ($data->tracks->items as $track) {
         $updateStatement = $database->prepare("UPDATE blend SET count = {$newCount} WHERE track_id = :track_id");
         $updateStatement->bindValue(':track_id', $track->track->id, SQLITE3_TEXT);
         $updateStatement->execute();
+        $database->close();
     } else {
         // Track doesn't exist, insert new entry
         $insertStatement = $database->prepare('INSERT INTO blend (track_id, name, artist_name, external_url, album_name, preview_url, image_url, count) VALUES (:track_id, :name, :artist_name, :external_url, :album_name, :preview_url, :image_url, 1)');
@@ -127,5 +129,6 @@ foreach ($data->tracks->items as $track) {
         $insertStatement->bindValue(':preview_url', $track->track->preview_url, SQLITE3_TEXT);
         $insertStatement->bindValue(':image_url', $track->track->album->images[0]->url, SQLITE3_TEXT);
         $insertStatement->execute();
+        $database->close();
     }
 }
