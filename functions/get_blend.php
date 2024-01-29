@@ -99,12 +99,18 @@ $database->exec('CREATE TABLE IF NOT EXISTS blend (
     count INTEGER
 )');
 
+$database->close();
+$database = new SQLite3('../data/db.sqlite');
 foreach ($data->tracks->items as $track) {
     echo "adding track {$track->track->name} to the database <br>";
-    $existingCount = $database->querySingle("SELECT count FROM blend WHERE track_id = '{$track->track->id}'", false);
+    echo "track id: {$track->track->id} <br>";
+    $db_track = $database->querySingle("SELECT track_id FROM blend WHERE track_id = '{$track->track->id}'", false);
+    echo "db track: {$db_track} <br>";
+
     // $existingCount = false;
-    if ($existingCount !== false) {
+    if ($db_track == $track->track->id) {
         echo "track exists, incrementing count <br>";
+        $existingCount = $database->querySingle("SELECT count FROM blend WHERE track_id = '{$track->track->id}'", false);
         // Track exists, increment count
         $newCount = $existingCount + 1;
         $updateStatement = $database->prepare("UPDATE blend SET count = {$newCount} WHERE track_id = :track_id");
