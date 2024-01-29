@@ -37,6 +37,8 @@ $database = new SQLite3('../data/db.sqlite');
 
 //create a new table if it doesn't exist already
 $database->exec('CREATE TABLE IF NOT EXISTS auth (id INTEGER PRIMARY KEY, access_token TEXT, refresh_token TEXT, created_at DATETIME DEFAULT CURRENT_TIMESTAMP)');
+$database->close();
+$database = new SQLite3('../data/db.sqlite');
 
 //insert the access token into the database
 $statement = $database->prepare('INSERT INTO auth (access_token, refresh_token) VALUES (:access_token, :refresh_token)');
