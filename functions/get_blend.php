@@ -100,8 +100,9 @@ $database->exec('CREATE TABLE IF NOT EXISTS blend (
 )');
 
 $database->close();
-$database = new SQLite3('../data/db.sqlite');
+
 foreach ($data->tracks->items as $track) {
+    $database = new SQLite3('../data/db.sqlite');
     echo "adding track {$track->track->name} to the database <br>";
     echo "track id: {$track->track->id} <br>";
     $db_track = $database->querySingle("SELECT track_id FROM blend WHERE track_id = '{$track->track->id}'", false);
