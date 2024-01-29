@@ -22,6 +22,12 @@ try {
     $api = new SpotifyWebAPI\SpotifyWebAPI();
     if ($accessToken) {
         $api->setAccessToken($accessToken);
+    } else {
+        $database = new SQLite3('../data/db.sqlite');
+        $statement = $database->prepare('SELECT access_token FROM auth ORDER BY created_at DESC LIMIT 1');
+        $result = $statement->execute();
+        $accessToken = $result->fetchArray(SQLITE3_ASSOC)['access_token'];
+        $api->setAccessToken($accessToken);
     }
 
     // Example: Make a request to the Spotify API
