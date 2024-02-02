@@ -2,7 +2,7 @@
 
 require '../vendor/autoload.php';
 session_start();
-
+$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 
 try {
     $dotenv->load();
@@ -13,11 +13,6 @@ try {
 $CLIENT_ID = $_ENV['SPOTIFY_CLIENT_ID'];
 $CLIENT_SECRET = $_ENV['SPOTIFY_CLIENT_SECRET'];
 $REDIRECT_URI = $_ENV['SPOTIFY_REDIRECT_URI'];
-
-
-
-
-$dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 
 $database = new SQLite3('../data/db.sqlite');
 $statement = $database->prepare('SELECT refresh_token FROM auth ORDER BY created_at DESC LIMIT 1');
