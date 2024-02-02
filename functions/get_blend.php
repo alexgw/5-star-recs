@@ -47,7 +47,7 @@ $data = $api->getPlaylist('37i9dQZF1EJxdz8iRHv1oU');
 // echo "</pre>";
 
 //if it doesn't exist already, create a new table to store the blend tracks 
-$database = new SQLite3('../data/db.sqlite');
+
 $database->exec('CREATE TABLE IF NOT EXISTS blend (
     id INTEGER PRIMARY KEY,
     track_id TEXT,
@@ -61,7 +61,7 @@ $database->exec('CREATE TABLE IF NOT EXISTS blend (
     count INTEGER
 )');
 
-$database->close();
+
 
 foreach ($data->tracks->items as $track) {
     $database = new SQLite3('../data/db.sqlite');
@@ -69,8 +69,8 @@ foreach ($data->tracks->items as $track) {
     echo "track id: {$track->track->id} <br>";
     $db_track = $database->querySingle("SELECT track_id FROM blend WHERE track_id = '{$track->track->id}'", false);
     echo "db track: {$db_track} <br>";
-    $database->close();
-    $database = new SQLite3('../data/db.sqlite');
+
+
     // $existingCount = false;
     if ($db_track == $track->track->id) {
         echo "track exists, incrementing count <br>";
@@ -80,7 +80,7 @@ foreach ($data->tracks->items as $track) {
         $updateStatement = $database->prepare("UPDATE blend SET count = {$newCount} WHERE track_id = :track_id");
         $updateStatement->bindValue(':track_id', $track->track->id, SQLITE3_TEXT);
         $updateStatement->execute();
-        $database->close();
+
     } else {
         // Track doesn't exist, insert new entry
         $database = new SQLite3('../data/db.sqlite');
@@ -93,6 +93,7 @@ foreach ($data->tracks->items as $track) {
         $insertStatement->bindValue(':preview_url', $track->track->preview_url, SQLITE3_TEXT);
         $insertStatement->bindValue(':image_url', $track->track->album->images[0]->url, SQLITE3_TEXT);
         $insertStatement->execute();
-        $database->close();
+
     }
 }
+$database->close();
