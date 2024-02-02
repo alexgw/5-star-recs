@@ -2,10 +2,29 @@
 
 require '../vendor/autoload.php';
 session_start();
-$accessToken = $_SESSION['userAccessToken'];
+
 
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 
+$database = new SQLite3('../data/db.sqlite');
+$statement = $database->prepare('SELECT refresh_token FROM auth ORDER BY created_at DESC LIMIT 1');
+$result = $statement->execute();
+$refreshToken = $result->fetchArray(SQLITE3_ASSOC)['refresh_token'];
+
+// Create a new SpotifyWebAPI\Session and refresh the access token
+$session = new SpotifyWebAPI\Session(
+    $CLIENT_ID,
+    $CLIENT_SECRET,
+    $REDIRECT_URI
+);
+$session->refreshAccessToken($refreshToken);
+$accessToken = $session->getAccessToken();
+
+// Update the session with the new access token
+$_SESSION['userAccessToken'] = $accessToken;
+
+// Retry the original operation (in this case, fetching the user's information)
+$api->setAccessToken($accessToken);
 
 try {
     $dotenv->load();
@@ -17,63 +36,7 @@ $CLIENT_ID = $_ENV['SPOTIFY_CLIENT_ID'];
 $CLIENT_SECRET = $_ENV['SPOTIFY_CLIENT_SECRET'];
 $REDIRECT_URI = $_ENV['SPOTIFY_REDIRECT_URI'];
 
-try {
-    // Try to make a request to the Spotify API using the current access token
-    $api = new SpotifyWebAPI\SpotifyWebAPI();
-    if ($accessToken) {
-        $api->setAccessToken($accessToken);
-    } else {
-        $database = new SQLite3('../data/db.sqlite');
-        $statement = $database->prepare('SELECT access_token FROM auth ORDER BY created_at DESC LIMIT 1');
-        $result = $statement->execute();
-        $accessToken = $result->fetchArray(SQLITE3_ASSOC)['access_token'];
-        $api->setAccessToken($accessToken);
-    }
 
-    // Example: Make a request to the Spotify API
-    $me = $api->me();
-
-
-
-} catch (SpotifyWebAPI\SpotifyWebAPIException $e) {
-    // If there's an issue with the current access token, catch the exception
-
-    // Log the error or handle it based on the specific error message
-    echo 'Spotify API Exception: ', $e->getMessage(), "\n";
-
-    // Check if the exception is due to an expired access token
-    if ($e->getCode() === 401 && strpos($e->getMessage(), 'expired') !== false) {
-        // Access token expired, try to refresh it
-        echo "access token expired";
-
-        // Fetch the refresh token from the database
-        $database = new SQLite3('../data/db.sqlite');
-        $statement = $database->prepare('SELECT refresh_token FROM auth ORDER BY created_at DESC LIMIT 1');
-        $result = $statement->execute();
-        $refreshToken = $result->fetchArray(SQLITE3_ASSOC)['refresh_token'];
-
-        // Create a new SpotifyWebAPI\Session and refresh the access token
-        $session = new SpotifyWebAPI\Session(
-            $CLIENT_ID,
-            $CLIENT_SECRET,
-            $REDIRECT_URI
-        );
-        $session->refreshAccessToken($refreshToken);
-        $accessToken = $session->getAccessToken();
-
-        // Update the session with the new access token
-        $_SESSION['userAccessToken'] = $accessToken;
-
-        // Retry the original operation (in this case, fetching the user's information)
-        $api->setAccessToken($accessToken);
-
-        // Continue with other operations using the Spotify API...
-    }
-} catch (Exception $e) {
-    // Handle other exceptions (if any)
-    // Log the error or perform any other necessary actions
-    echo 'Caught exception: ', $e->getMessage(), "\n";
-}
 
 $data = $api->getPlaylist('37i9dQZF1EJxdz8iRHv1oU');
 //https://open.spotify.com/playlist/37i9dQZF1EJxdz8iRHv1oU?si=9bc252791b7c4c81
