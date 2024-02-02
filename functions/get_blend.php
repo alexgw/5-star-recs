@@ -31,6 +31,8 @@ $accessToken = $session->getAccessToken();
 // Update the session with the new access token
 $_SESSION['userAccessToken'] = $accessToken;
 
+$api = new SpotifyWebAPI\SpotifyWebAPI();
+
 // Retry the original operation (in this case, fetching the user's information)
 $api->setAccessToken($accessToken);
 
