@@ -83,6 +83,7 @@ foreach ($data->tracks->items as $track) {
         $database->close();
     } else {
         // Track doesn't exist, insert new entry
+        $database = new SQLite3('../data/db.sqlite');
         $insertStatement = $database->prepare('INSERT INTO blend (track_id, name, artist_name, external_url, album_name, preview_url, image_url, count) VALUES (:track_id, :name, :artist_name, :external_url, :album_name, :preview_url, :image_url, 1)');
         $insertStatement->bindValue(':track_id', $track->track->id, SQLITE3_TEXT);
         $insertStatement->bindValue(':name', $track->track->name, SQLITE3_TEXT);
