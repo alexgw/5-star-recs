@@ -4,6 +4,19 @@ require '../vendor/autoload.php';
 session_start();
 
 
+try {
+    $dotenv->load();
+} catch (Exception $e) {
+    echo 'Could not load .env file: ', $e->getMessage(), "\n";
+}
+
+$CLIENT_ID = $_ENV['SPOTIFY_CLIENT_ID'];
+$CLIENT_SECRET = $_ENV['SPOTIFY_CLIENT_SECRET'];
+$REDIRECT_URI = $_ENV['SPOTIFY_REDIRECT_URI'];
+
+
+
+
 $dotenv = Dotenv\Dotenv::createImmutable(dirname(__DIR__));
 
 $database = new SQLite3('../data/db.sqlite');
@@ -25,17 +38,6 @@ $_SESSION['userAccessToken'] = $accessToken;
 
 // Retry the original operation (in this case, fetching the user's information)
 $api->setAccessToken($accessToken);
-
-try {
-    $dotenv->load();
-} catch (Exception $e) {
-    echo 'Could not load .env file: ', $e->getMessage(), "\n";
-}
-
-$CLIENT_ID = $_ENV['SPOTIFY_CLIENT_ID'];
-$CLIENT_SECRET = $_ENV['SPOTIFY_CLIENT_SECRET'];
-$REDIRECT_URI = $_ENV['SPOTIFY_REDIRECT_URI'];
-
 
 
 $data = $api->getPlaylist('37i9dQZF1EJxdz8iRHv1oU');
