@@ -64,7 +64,7 @@ $database->exec('CREATE TABLE IF NOT EXISTS blend (
 
 
 foreach ($data->tracks->items as $track) {
-    $database = new SQLite3('../data/db.sqlite');
+
     echo "adding track {$track->track->name} to the database <br>";
     echo "track id: {$track->track->id} <br>";
     $db_track = $database->querySingle("SELECT track_id FROM blend WHERE track_id = '{$track->track->id}'", false);
@@ -83,7 +83,7 @@ foreach ($data->tracks->items as $track) {
 
     } else {
         // Track doesn't exist, insert new entry
-        $database = new SQLite3('../data/db.sqlite');
+
         $insertStatement = $database->prepare('INSERT INTO blend (track_id, name, artist_name, external_url, album_name, preview_url, image_url, count) VALUES (:track_id, :name, :artist_name, :external_url, :album_name, :preview_url, :image_url, 1)');
         $insertStatement->bindValue(':track_id', $track->track->id, SQLITE3_TEXT);
         $insertStatement->bindValue(':name', $track->track->name, SQLITE3_TEXT);
