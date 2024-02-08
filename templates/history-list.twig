@@ -1,26 +1,11 @@
 <div class="history-container">
 
 {% for track in data %}
-        <li class="history-track">
+        <li class="history-track" onclick="track_active(this)" >
             <div class="history-track__cover">
                 <img src="{{ track.image_url }}" alt="{{ track.name }}">
                
-                <svg
-                    xmlns="http://www.w3.org/2000/svg"
-                    width="40"
-                    height="40"
-                    viewBox="0 0 24 24"
-                    fill="none"
-                    stroke="white"
-                    stroke-width="2"
-                    stroke-linecap="round"
-                    stroke-linejoin="round"
-                    class="play-svg{{ track.track_id }}"
-                    onclick="togglePlayback('{{ track.track_id }}')"
-
-                >
-                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
-                </svg>
+              
                 <audio id="audio-{{ track.track_id }}">
                     <source src="{{ track.preview_url }}" type="audio/mpeg">
                 </audio>
@@ -31,8 +16,24 @@
                 <p class="history-track__album">{{ track.album }}</p>
                 <p class="history-track__artist">{{ track.artist_name }}</p>
                 <p class="history-track__added">added on: {{ track.created_at|date("d/m/Y") }} <br> times added: {{track.count}}</p>
-
+             
             </div>
+                 <svg
+                    xmlns="http://www.w3.org/2000/svg"
+                    width="40"
+                    height="40"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    stroke="white"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                    class="play-svg{{ track.track_id }}"
+                    onclick="togglePlayback('{{ track.track_id }}',this)"
+
+                >
+                    <polygon points="5 3 19 12 5 21 5 3"></polygon>
+                </svg>
             
         </li>
 {% endfor %}
@@ -40,29 +41,55 @@
     <script>
         var currentPlayingId = null;
 
-    function togglePlayback(trackId) {
+    function togglePlayback(trackId, e) {
+        //stop bubbling up
+        
         var audioElement = document.getElementById('audio-' + trackId);
         var playSvg = document.querySelector('.play-svg' + trackId);
+        console.log(playSvg);
 
         if (currentPlayingId !== null && currentPlayingId !== trackId) {
             // Pause the currently playing track
             var playSvg = document.querySelector('.play-svg.active');
             var currentAudioElement = document.getElementById('audio-' + currentPlayingId);
             currentAudioElement.pause();
-            playSvg.classList.remove('active');
+            playSvg.setAttribute('stroke', 'white');
         }
 
         if (audioElement.paused) {
             // If the track is paused, play it and update the SVG
             audioElement.play();
             playSvg.classList.add('active');
+            playSvg.setAttribute('stroke', 'green');
         } else {
             // If the track is playing, pause it and update the SVG
             audioElement.pause();
             playSvg.classList.remove('active');
+            playSvg.setAttribute('stroke', 'white');
         }
 
         currentPlayingId = (audioElement.paused) ? null : trackId;
     }
+
+    function track_active(e){
+
+        var active = document.querySelectorAll('.active');
+
+        for(var i = 0; i < active.length; i++){
+            active[i].classList.remove('active');
+        }
+        e.classList.add('active');
+    }
+
+    document.onkeydown = function(evt) {
+    evt = evt || window.event;
+    if (evt.keyCode == 27) {
+        var active = document.querySelectorAll('.active');
+
+        for(var i = 0; i < active.length; i++){
+            active[i].classList.remove('active');
+        }
+    }
+};
     </script>
 </div>
